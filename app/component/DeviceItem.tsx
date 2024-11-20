@@ -1,20 +1,26 @@
 import { DeviceModel } from "@/domain/Device"
-import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes } from "react"
+import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes, useMemo } from "react"
 
 const ReadyLabel = ({isReady, ...props}: {isReady: boolean, props?: HTMLAttributes<HTMLParagraphElement>}) => {
+    const color = useMemo(() => 
+        isReady ? "green-500" : "red-500"
+        ,[isReady]
+    )
+    
     return (
-        <p className={
-            isReady ? "text-green-500" : "text-red-500"
-        } {...props}
-        >
-            {isReady? "Ready" : "Busy"}
-        </p>
+        <div className="flex-row m-5">
+            <div className={`rounded-xl size-2 bg-${color}`} />
+            <label className={`text-${color}`} {...props}
+            >
+                {isReady? "Ready" : "Busy"}
+            </label>
+        </div>
     )
 }
 
 const DeviceName = ({deviceName}: {deviceName: string}) => {
     return (
-        <h3>{deviceName}</h3>
+        <h3 className="m-5">{deviceName}</h3>
     )
 }
 
@@ -24,9 +30,9 @@ type DeviceInfoProps = {
 }
 const DeviceInfo = (props: DeviceInfoProps) => {
     return (
-        <div className="flex-row justify-between">
-            <label>{props.name}</label>
-            <p>{props.attribute}</p>
+        <div className="w-auto flex-row content-between m-2">
+            <label>{props.name}:</label>
+            <label>{props.attribute}</label>
         </div>
     )
 }
@@ -34,35 +40,56 @@ const DeviceInfo = (props: DeviceInfoProps) => {
 const DeviceButton = (props: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => {
     return (
         <button 
-            className="border-yellow-200 border-r-4" 
+            className="border-yellow-500 border-2 p-5" 
             {...props}
-        />
+        >
+            Use device
+        </button>
     )
 }
 
-export const DeviceItem = ({device}: {device: DeviceModel}) => {
+type DeviceProps = {
+    device: DeviceModel,
+    onUseButtonClicked?: (device: DeviceModel) => void,
+    onBlockDeviceClicked?: () => void
+}
+
+export const DeviceItem = (
+    {device, onUseButtonClicked, onBlockDeviceClicked}: DeviceProps
+) => {
+    const onUseClicked = () => {
+        onUseButtonClicked && onUseButtonClicked(device)
+    }
+    
     return (
-        <div className="flex-col border-r-8 border-blue-400">
+        <div 
+            className="w-auto flex-col rounded-lg border-blue-400 border-2"
+        >
             <ReadyLabel isReady={!device.busy}/>
             <hr />
             <DeviceName deviceName={device.name} />
             <hr />
 
-            <DeviceInfo 
-                name="UDID"
-                attribute={device.udid}
-            />
-            <DeviceInfo 
-                name="Version"
-                attribute={device.sdk}
-            />
-            <DeviceInfo 
-                name="Location"
-                attribute={device.host}
-            />
-            <div className="flex-row justify-between">
-                <DeviceButton />
+            <div className="m-2">    
+                <DeviceInfo 
+                    name="UDID"
+                    attribute={device.udid}
+                />
+                <DeviceInfo 
+                    name="Version"
+                    attribute={device.sdk}
+                />
+                <DeviceInfo 
+                    name="Location"
+                    attribute={device.host}
+                />
+                <div className="flex-row">
+                    <DeviceButton
+                        onClick={onUseClicked}
+                    />
+                </div>
             </div>
+            
         </div>
     )
 }

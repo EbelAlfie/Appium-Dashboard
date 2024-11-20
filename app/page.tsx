@@ -1,9 +1,11 @@
-import Image from "next/image";
+"use client" ;
+
+import { DeviceList } from "./component/DeviceList";
 
 export default function Home() {
   return (
     <main>
-      
+      <DeviceList />
     </main>
   );
 }

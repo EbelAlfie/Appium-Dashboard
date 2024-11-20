@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { Endpoints } from "./ApiEndpoints";
 import { DeviceModel } from "../domain/Device";
+import { ResponseMapper } from "./ResponseMapper";
 
 class AppiumService {
     baseUrl: string = "http://127.0.0.1:4723/device-farm/"
@@ -23,7 +24,17 @@ class AppiumService {
         return this.request(requestConfig)
         .then(result => {
             console.log(result.data)
-            return result
+            const devices: DeviceModel[] = result.data.map((items: any) => {
+                return {
+                    udid: items.udid,
+                    sdk: items.sdk,
+                    systemPort: items.systemPort,
+                    name: items.name,
+                    busy: items.busy,
+                    host: items.host
+                }
+            })
+            return devices
         })
     }
 

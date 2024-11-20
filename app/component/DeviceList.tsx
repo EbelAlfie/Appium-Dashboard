@@ -1,3 +1,5 @@
+"use client" ;
+
 import { appiumService } from "@/api/AppiumService"
 import { DeviceModel } from "@/domain/Device"
 import { useEffect, useMemo, useState } from "react"
@@ -8,20 +10,30 @@ export const DeviceList = () => {
 
     useEffect(() => {
         appiumService.getDevices()
-        .then((result) => { //: DeviceModel[]
+        .then((result) => { 
             setDevices(result)
         }).catch(error => {
 
         })
     }, [])
 
+    const useDevice = (device: DeviceModel) => {
+        appiumService.createAppiumSession(device)
+    }
+
     const deviceItems = useMemo(() => {
-        return devices?.map((items) => <DeviceItem device={items}/>)
+        return devices?.map((items) => 
+            <DeviceItem 
+                key={items.udid} 
+                device={items}
+                onUseButtonClicked={useDevice}
+            />
+        )
     }, [devices])
 
     return (
-        <div>
+        <section className="h-screen w-full grid-cols-5 gap-4 wrap-2">
             {deviceItems}
-        </div>
+        </section>
     )
 }

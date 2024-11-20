@@ -2,5 +2,7 @@ export type DeviceModel = {
     udid: string,
     sdk: number,
     systemPort: number,
-    name: string
+    name: string,
+    busy: boolean,
+    host: string
 }

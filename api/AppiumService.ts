@@ -61,7 +61,7 @@ class AppiumService {
     }
 
     async connectDevice(device: DeviceModel) {
-        const socket = new WebSocket(`${this.baseUrl}android-stream/${device.udid}`)
+        const socket = new WebSocket(`ws://127.0.0.1:4723/android-stream/${device.udid}`)
         socket.onmessage = (event: MessageEvent) => {
             console.log(event.data)
         }

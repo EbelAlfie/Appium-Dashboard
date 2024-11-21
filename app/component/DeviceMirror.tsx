@@ -11,6 +11,7 @@ export const DeviceMirror = (props: DeviceMirrorProps) => {
     useEffect(() => {
         const latest = props.deviceMirrors?.pop()
         if (latest === undefined) return 
+        console.log("LLL")
         
         appiumService.connectDevice(latest)
         .then(result => {
@@ -19,7 +20,7 @@ export const DeviceMirror = (props: DeviceMirrorProps) => {
         .catch(error => {
 
         })
-    }, [props])
+    }, [props.deviceMirrors])
     
     return (
         <>

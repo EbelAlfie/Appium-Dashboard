@@ -8,8 +8,8 @@ const ReadyLabel = ({isReady, ...props}: {isReady: boolean, props?: HTMLAttribut
     )
     
     return (
-        <div className="flex-row m-5">
-            <div className={`rounded-xl size-2 bg-${color}`} />
+        <div className="flex flex-row m-3">
+            <div className={`self-center me-2 rounded-xl size-2 bg-green-500 ${color}`} />
             <label className={`text-${color}`} {...props}
             >
                 {isReady? "Ready" : "Busy"}
@@ -20,7 +20,7 @@ const ReadyLabel = ({isReady, ...props}: {isReady: boolean, props?: HTMLAttribut
 
 const DeviceName = ({deviceName}: {deviceName: string}) => {
     return (
-        <h3 className="m-5">{deviceName}</h3>
+        <h3 className="m-3">{deviceName}</h3>
     )
 }
 
@@ -30,7 +30,7 @@ type DeviceInfoProps = {
 }
 const DeviceInfo = (props: DeviceInfoProps) => {
     return (
-        <div className="w-auto flex-row content-between m-2">
+        <div className="w-auto flex flex-row justify-between m-2">
             <label>{props.name}:</label>
             <label>{props.attribute}</label>
         </div>
@@ -63,14 +63,14 @@ export const DeviceItem = (
     
     return (
         <div 
-            className="w-auto flex-col rounded-lg border-blue-400 border-2"
+            className="w-auto flex flex-col rounded-lg border-blue-400 border-2"
         >
             <ReadyLabel isReady={!device.busy}/>
             <hr />
             <DeviceName deviceName={device.name} />
             <hr />
 
-            <div className="m-2">    
+            <div className="m-2">
                 <DeviceInfo 
                     name="UDID"
                     attribute={device.udid}
@@ -83,7 +83,7 @@ export const DeviceItem = (
                     name="Location"
                     attribute={device.host}
                 />
-                <div className="flex-row">
+                <div className="flex flex-row">
                     <DeviceButton
                         onClick={onUseClicked}
                     />

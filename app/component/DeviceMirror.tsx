@@ -8,6 +8,10 @@ export const DeviceMirror = () => {
     }, [])
     
     return (
-        <></>
+        <>
+            <section>
+                
+            </section>
+        </>
     )
 }

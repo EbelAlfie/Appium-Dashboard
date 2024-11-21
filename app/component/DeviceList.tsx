@@ -5,6 +5,8 @@ import { DeviceModel } from "@/domain/Device"
 import { useEffect, useMemo, useState } from "react"
 import { DeviceItem } from "./DeviceItem"
 
+type DevicesUiState = 'loading'|'empty'|Array<DeviceModel[]>|Error 
+
 export const DeviceList = () => {
     const [devices, setDevices] = useState<DeviceModel[]>()
 
@@ -32,8 +34,12 @@ export const DeviceList = () => {
     }, [devices])
 
     return (
-        <section className="h-screen w-full grid-cols-5 gap-4 wrap-2">
-            {deviceItems}
-        </section>
+        <>
+            <section 
+                className="w-full grid grid-cols-5 gap-4"
+            >
+                {deviceItems}
+            </section>
+        </>
     )
 }

@@ -1,15 +1,17 @@
 import { DeviceModel } from "@/domain/Device"
-import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes, useMemo } from "react"
+import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes, useEffect, useMemo, useState } from "react"
 
 const ReadyLabel = ({isReady, ...props}: {isReady: boolean, props?: HTMLAttributes<HTMLParagraphElement>}) => {
-    const color = useMemo(() => 
-        isReady ? "green-500" : "red-500"
-        ,[isReady]
+    const [color, setColor] = useState<string>() 
+
+    useEffect(
+        () => setColor(isReady ? "green-500" : "red-500"), 
+        [isReady]
     )
-    
+
     return (
         <div className="flex flex-row m-3">
-            <div className={`self-center me-2 rounded-xl size-2 bg-green-500 ${color}`} />
+            <div className={`self-center me-2 rounded-xl size-2 bg-${color}`} />
             <label className={`text-${color}`} {...props}
             >
                 {isReady? "Ready" : "Busy"}

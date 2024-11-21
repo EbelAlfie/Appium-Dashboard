@@ -5,33 +5,32 @@ import { DeviceModel } from "@/domain/Device"
 import { useEffect, useMemo, useState } from "react"
 import { DeviceItem } from "./DeviceItem"
 
-type DevicesUiState = 'loading'|'empty'|Array<DeviceModel[]>|Error 
+type DeviceListProps = {
+    devices: DeviceModel[],
+    setDevices: (devices: DeviceModel[]) => void
+    onUseDevice: (device: DeviceModel) => void
+}
 
-export const DeviceList = () => {
-    const [devices, setDevices] = useState<DeviceModel[]>()
+export const DeviceList = (props: DeviceListProps) => {
 
     useEffect(() => {
         appiumService.getDevices()
-        .then((result) => { 
-            setDevices(result)
+        .then((result) => {
+            props.setDevices(result)
         }).catch(error => {
 
         })
     }, [])
 
-    const useDevice = (device: DeviceModel) => {
-        appiumService.createAppiumSession(device)
-    }
-
     const deviceItems = useMemo(() => {
-        return devices?.map((items) => 
+        return props.devices?.map((items) => 
             <DeviceItem 
                 key={items.udid} 
                 device={items}
-                onUseButtonClicked={useDevice}
+                onUseButtonClicked={props.onUseDevice}
             />
         )
-    }, [devices])
+    }, [props.devices])
 
     return (
         <>

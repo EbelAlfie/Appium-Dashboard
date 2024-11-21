@@ -53,7 +53,7 @@ class AppiumService {
             method: "post"
         }
 
-        this.request(requestConfig)
+        return this.request(requestConfig)
     }
 
     async blockDevice() {
@@ -70,7 +70,7 @@ class AppiumService {
     private async request(config: AxiosRequestConfig) {
         return axios.request(config)
         .then(result => {
-            console.log(result)
+            console.log(`${config.url} ${result}`)
             return result
         })
     }

@@ -10,7 +10,7 @@ type DeviceMirrorProps = {
 export const Devices = (props: DeviceMirrorProps) => {
     let socket: Array<WebSocket> = []
 
-    const [debugState, setDebug] = useState<string>()
+    const [stream, setStream] = useState<string>()
 
     useEffect(() => {
         let device = props.deviceMirrors.pop()
@@ -23,7 +23,7 @@ export const Devices = (props: DeviceMirrorProps) => {
         newSocket.onmessage = (event: MessageEvent) => {
             console.log(`onMessage ${event}`)
             const img = URL.createObjectURL(event.data as Blob);
-            setDebug(img)  
+            setStream(img)  
         }
 
         socket = [...socket, newSocket]
@@ -33,9 +33,8 @@ export const Devices = (props: DeviceMirrorProps) => {
     return (
         <>
             <section>
-                <p>{`${debugState}`}</p>
-                {debugState &&
-                    <img src={debugState}/>
+                {stream &&
+                    <DeviceInstance imageSource={stream}/>
                 }
             </section>
         </>

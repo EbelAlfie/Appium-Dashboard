@@ -1,24 +1,21 @@
 import { DeviceModel } from "@/domain/Device"
 import { DeviceList } from "./DeviceList"
-import { DeviceMirror } from "./DeviceMirror"
+import { Devices } from "./DeviceMirrors"
 import { useState } from "react"
 import { appiumService } from "@/api/AppiumService"
 
 export const DevicesManager = () => {
     const [devices, setDevices] = useState<DeviceModel[]>(null!)
-    const [deviceMirrors, addMirror] = useState<DeviceModel[]>(null!)
+    const [deviceMirrors, addMirror] = useState<DeviceModel[]>([])
 
     const useDevice = (device: DeviceModel) => {
         appiumService.createAppiumSession(device)
             .then(result => {
                 console.log("Success create session")
-                console.log(result)
-                const newList = deviceMirrors
-                newList.push(device)
                 
-                addMirror(newList)
+                addMirror([...deviceMirrors, device])
             }).catch(error => {
-
+                console.log(error)
             })
     }
 
@@ -29,7 +26,7 @@ export const DevicesManager = () => {
                 setDevices={setDevices}
                 onUseDevice={useDevice} 
             />
-            <DeviceMirror 
+            <Devices
                 deviceMirrors={deviceMirrors}
             />
         </section>

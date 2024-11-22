@@ -1,5 +1,3 @@
-"use client" ;
-
 import { appiumService } from "@/api/AppiumService"
 import { DeviceModel } from "@/domain/Device"
 import { useEffect, useMemo, useState } from "react"

@@ -87,7 +87,7 @@ export const DeviceItem = (
                 />
                 <DeviceInfo 
                     name="Location"
-                    attribute={device.host}
+                    attribute={device.host.replaceAll("http://", "")}
                 />
                 <div className="flex flex-row">
                     <DeviceButton

@@ -38,7 +38,7 @@ class AppiumService {
         })
     }
 
-    async createAppiumSession(device: DeviceModel) {
+    createAppiumSession(device: DeviceModel) {
         const endpoint = Endpoints["create-session"] ?? ""
         const body = {
             "udid": device.udid,
@@ -60,11 +60,10 @@ class AppiumService {
 
     }
 
-    async connectDevice(device: DeviceModel) {
-        const socket = new WebSocket(`ws://127.0.0.1:4723/android-stream/${device.udid}`)
-        socket.onmessage = (event: MessageEvent) => {
-            console.log(event.data)
-        }
+    public connectDevice(device: DeviceModel) {
+        let deviceHost = device.host.replaceAll("http://", "")
+        const socket = new WebSocket(`ws://${deviceHost}/android-stream/${device.udid}`)
+        return socket
     }
 
     private async request(config: AxiosRequestConfig) {

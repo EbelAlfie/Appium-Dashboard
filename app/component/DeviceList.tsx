@@ -1,7 +1,10 @@
 import { appiumService } from "@/api/AppiumService"
 import { DeviceModel } from "@/domain/Device"
-import { useEffect, useMemo, useState } from "react"
-import { DeviceItem } from "./DeviceItem"
+import { useEffect, useMemo } from "react"
+import { DeviceItem } from "./device/DeviceItem"
+import { DevicesError } from "./device/Error"
+import { DevicesLoading } from "./device/Loading"
+import { DeviceListContent } from "./device/ListContent"
 
 type DeviceListProps = {
     devices: DeviceListUiState,
@@ -32,27 +35,27 @@ export const DeviceList = (props: DeviceListProps) => {
         const deviceUiState = props.devices
         switch(deviceUiState.type) {
             case 'loading':
-                return <p>loading cuy</p>
+                return <DevicesLoading />
             case 'success':
-                return deviceUiState?.data.map((items) => 
-                    <DeviceItem 
-                        key={items.udid} 
-                        device={items}
-                        onUseButtonClicked={props.onUseDevice}
-                    />
-                )
+                return <DeviceListContent>
+                    {deviceUiState?.data.map((items) => 
+                        <DeviceItem 
+                            key={items.udid} 
+                            device={items}
+                            onUseButtonClicked={props.onUseDevice}
+                        />
+                    )}
+                </DeviceListContent>
             case 'empty':
                 return <p>Empty</p>
-            default:
-                return <p>Hehe</p>
+            case 'failed':
+                return <DevicesError />
         }
     }, [props.devices])
 
     return (
         <>
-            <section 
-                className="w-full grid grid-cols-5 gap-4"
-            >
+            <section>
                 {deviceItems}
             </section>
         </>

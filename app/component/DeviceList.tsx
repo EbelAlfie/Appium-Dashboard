@@ -5,6 +5,7 @@ import { DeviceItem } from "./device/DeviceItem"
 import { DevicesError } from "./device/Error"
 import { DevicesLoading } from "./device/Loading"
 import { DeviceListContent } from "./device/ListContent"
+import { Failed, Success, UiState } from "../base/UiState"
 
 type DeviceListProps = {
     devices: DeviceListUiState,
@@ -12,31 +13,29 @@ type DeviceListProps = {
     onUseDevice: (device: DeviceModel) => void
 }
 
-type Loading = { type:"loading" }
-type Empty = { type:"empty" } 
-type Success = { type: "success", data: DeviceModel[] }
-type Failed = { type: "failed", error: Error }
+type Empty = { type: "empty" } 
+const EmptyState: Empty = { type: "empty" } 
 
-export type DeviceListUiState = Loading|Empty|Success|Failed
+export type DeviceListUiState = UiState<DeviceModel[]> | Empty
 
 export const DeviceList = (props: DeviceListProps) => {
 
-    useEffect(() => {
-        appiumService.getDevices()
-        .then((result) => {
-            if (result.length <= 0) props.setDevices({type: 'empty'});
-            else props.setDevices({ type: "success", data: result })
-        }).catch(error => {
-            props.setDevices({ type: "failed", error: error })
-        })
-    }, [])
+    // useEffect(() => {
+    //     appiumService.getDevices()
+    //     .then((result) => {
+    //         if (result.length <= 0) props.setDevices(EmptyState);
+    //         else props.setDevices(Success(result))
+    //     }).catch(error => {
+    //         props.setDevices(Failed(error))
+    //     })
+    // }, [])
 
     const deviceItems = useMemo(() => {
         const deviceUiState = props.devices
         switch(deviceUiState.type) {
-            case 'loading':
+            case "loading":
                 return <DevicesLoading />
-            case 'success':
+            case "success":
                 return <DeviceListContent>
                     {deviceUiState?.data.map((items) => 
                         <DeviceItem 
@@ -48,7 +47,7 @@ export const DeviceList = (props: DeviceListProps) => {
                 </DeviceListContent>
             case 'empty':
                 return <p>Empty</p>
-            case 'failed':
+            case "failed":
                 return <DevicesError />
         }
     }, [props.devices])

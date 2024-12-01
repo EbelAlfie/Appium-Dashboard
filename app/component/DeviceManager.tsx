@@ -3,9 +3,10 @@ import { DeviceList, DeviceListUiState } from "./DeviceList"
 import { Devices } from "./DeviceMirrors"
 import { useState } from "react"
 import { appiumService } from "@/api/AppiumService"
+import { Loading } from "../base/UiState"
 
 export const DevicesManager = () => {
-    const [devices, setDevices] = useState<DeviceListUiState>({ type: 'loading' })
+    const [devices, setDevices] = useState<DeviceListUiState>(Loading)
     const [deviceMirrors, addMirror] = useState<DeviceModel[]>([])
 
     const useDevice = (device: DeviceModel) => {

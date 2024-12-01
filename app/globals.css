@@ -19,3 +19,44 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.loading {
+  width: 10px;
+  height: 40px;
+  border-radius: 25%;
+  background-color: #11249B;
+  position: relative;
+  top: 0%;
+  animation: loading 2s ease infinite;
+}
+
+@keyframes loading {
+  0%, 100% { 
+    box-shadow: -15px 10px 0 #11249B, 15px 10px 0 #11249B;
+    top: 0px;
+  }
+  16% {
+    box-shadow: -15px -10px 0 #11249B, 15px -10px 0 #11249B ;
+    top: 10px;
+  }
+  32% {
+    box-shadow: -15px 10px 0 #11249B, 15px 10px 0 #11249B ;
+    top: 0px;
+  }
+  48% {
+    box-shadow: -15px -10px 0 #11249B, 15px -10px 0 #11249B ;
+    top: 10px;
+  }
+  64% {
+    box-shadow: -15px 10px 0 #11249B, 15px 10px 0 #11249B ;
+    top: 0px;
+  }
+  80% {
+    box-shadow: -15px -10px 0 #11249B, 15px -10px 0 #11249B ;
+    top: 10px;
+  }
+  96% {
+    box-shadow: -15px 10px 0 #11249B, 15px 10px 0 #11249B ;
+    top: 0px;
+  }
+}

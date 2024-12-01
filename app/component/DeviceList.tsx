@@ -48,7 +48,7 @@ export const DeviceList = (props: DeviceListProps) => {
             case 'empty':
                 return <p>Empty</p>
             case "failed":
-                return <DevicesError />
+                return <DevicesError error={deviceUiState.error}/>
         }
     }, [props.devices])
 

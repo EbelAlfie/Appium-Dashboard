@@ -20,6 +20,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+main-screen {
+  background-image: radial-gradient(#11249B, #0F123B);
+}
+
 .loading {
   width: 10px;
   height: 40px;

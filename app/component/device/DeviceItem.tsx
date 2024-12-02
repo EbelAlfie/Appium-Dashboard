@@ -46,7 +46,7 @@ const DeviceInfo = (props: DeviceInfoProps) => {
 const DeviceButton = (props: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => {
     return (
         <button 
-            className="border-yellow-500 border-2 p-5" 
+            className="bg-purple-950 p-3 rounded-md" 
             {...props}
         >
             Use device
@@ -69,7 +69,7 @@ export const DeviceItem = (
     
     return (
         <div 
-            className="w-auto flex flex-col rounded-lg border-blue-400 border-2"
+            className="w-auto flex flex-col rounded-lg bg-blue-500 hover:bg-blue-800"
         >
             <ReadyLabel isReady={!device.busy}/>
             <hr />

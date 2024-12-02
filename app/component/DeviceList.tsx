@@ -20,15 +20,15 @@ export type DeviceListUiState = UiState<DeviceModel[]> | Empty
 
 export const DeviceList = (props: DeviceListProps) => {
 
-    // useEffect(() => {
-    //     appiumService.getDevices()
-    //     .then((result) => {
-    //         if (result.length <= 0) props.setDevices(EmptyState);
-    //         else props.setDevices(Success(result))
-    //     }).catch(error => {
-    //         props.setDevices(Failed(error))
-    //     })
-    // }, [])
+    useEffect(() => {
+        appiumService.getDevices()
+        .then((result) => {
+            if (result.length <= 0) props.setDevices(EmptyState);
+            else props.setDevices(Success(result))
+        }).catch(error => {
+            props.setDevices(Failed(error))
+        })
+    }, [])
 
     const deviceItems = useMemo(() => {
         const deviceUiState = props.devices
@@ -46,15 +46,15 @@ export const DeviceList = (props: DeviceListProps) => {
                     )}
                 </DeviceListContent>
             case 'empty':
-                return <p>Empty</p>
+                return <DevicesError warningMessage="No Device Connected"/>
             case "failed":
-                return <DevicesError error={deviceUiState.error}/>
+                return <DevicesError warningMessage={deviceUiState.error.message}/>
         }
     }, [props.devices])
 
     return (
         <>
-            <section>
+            <section className="p-5">
                 {deviceItems}
             </section>
         </>

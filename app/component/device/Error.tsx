@@ -1,11 +1,12 @@
 type ErrorProps = {
-    error: Error
+    warningMessage: string
 }
 
 export const DevicesError = (props: ErrorProps) => {
     return (
         <div className="w-full h-screen flex items-center justify-center">
-            <h2>{props.error.message}</h2>
+            {/* Image */}
+            <p className="text-2xl bold">{props.warningMessage}</p>
         </div>
     )
 }

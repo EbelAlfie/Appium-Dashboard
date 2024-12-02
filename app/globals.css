@@ -20,8 +20,13 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-main-screen {
-  background-image: radial-gradient(#11249B, #0F123B);
+.device-item {
+  background-color: #1A060C29 ;
+}
+
+.main-screen {
+  background-image: radial-gradient(#0075FF, #03264d); 
+  /* #0F123B */
 }
 
 .loading {

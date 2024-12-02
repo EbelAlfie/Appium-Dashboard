@@ -54,7 +54,7 @@ export const DeviceList = (props: DeviceListProps) => {
 
     return (
         <>
-            <section className="p-5">
+            <section className="w-full h-screen main-screen">
                 {deviceItems}
             </section>
         </>

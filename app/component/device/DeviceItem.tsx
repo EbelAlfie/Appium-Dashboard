@@ -26,7 +26,7 @@ const ReadyLabel = ({isReady, ...props}: {isReady: boolean, props?: HTMLAttribut
 
 const DeviceName = ({deviceName}: {deviceName: string}) => {
     return (
-        <h3 className="m-3">{deviceName}</h3>
+        <h3 className="text-xl font-bold m-3">{deviceName}</h3>
     )
 }
 
@@ -46,7 +46,7 @@ const DeviceInfo = (props: DeviceInfoProps) => {
 const DeviceButton = (props: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => {
     return (
         <button 
-            className="bg-purple-950 p-3 rounded-md" 
+            className="bg-[#0075FF] p-3 rounded-md hover:transition-colors hover:shadow-2xl focus:bg-black" 
             {...props}
         >
             Use device
@@ -69,7 +69,7 @@ export const DeviceItem = (
     
     return (
         <div 
-            className="w-auto flex flex-col rounded-lg bg-blue-500 hover:bg-blue-800"
+            className="w-auto flex flex-col rounded-lg device-item"
         >
             <ReadyLabel isReady={!device.busy}/>
             <hr />

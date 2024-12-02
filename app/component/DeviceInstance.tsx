@@ -2,9 +2,9 @@ type DeviceProps = {
     imageSource: string
 }
 
-const DeviceInstance = (props: DeviceProps) => {
+export const DeviceInstance = (props: DeviceProps) => {
     return (
-        <div className="">
+        <div>
             <img src={props.imageSource} />
         </div>
     )

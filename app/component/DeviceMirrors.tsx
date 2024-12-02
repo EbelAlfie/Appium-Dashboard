@@ -1,7 +1,7 @@
 import { appiumService } from "@/api/AppiumService"
 import { DeviceModel } from "@/domain/Device"
-import Image from "next/image"
 import { useEffect, useState } from "react"
+import { DeviceInstance } from "./DeviceInstance"
 
 type DeviceMirrorProps = {
     deviceMirrors: Array<DeviceModel>

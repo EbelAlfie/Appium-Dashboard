@@ -56,8 +56,38 @@ class AppiumService {
         return this.request(requestConfig)
     }
 
-    async blockDevice() {
+    async blockDevice(device: DeviceModel) {
+        const endpoint = Endpoints["device-block"] ?? ""
+        const body = {
+            "udid": device.udid,
+            "host": device.host
+        }
 
+        const requestConfig: AxiosRequestConfig = {
+            baseURL: this.baseUrl,
+            url: endpoint,
+            data : body,
+            method: "post"
+        }
+
+        return this.request(requestConfig)
+    }
+
+    async unBlockDevice(device: DeviceModel) {
+        const endpoint = Endpoints["device-unblock"] ?? ""
+        const body = {
+            "udid": device.udid,
+            "host": device.host
+        }
+
+        const requestConfig: AxiosRequestConfig = {
+            baseURL: this.baseUrl,
+            url: endpoint,
+            data : body,
+            method: "post"
+        }
+
+        return this.request(requestConfig)
     }
 
     public connectDevice(device: DeviceModel) {

@@ -25,8 +25,7 @@ body {
 }
 
 .main-screen {
-  background-image: radial-gradient(#0075FF, #03264d); 
-  /* #0F123B */
+  background-image: radial-gradient(#0075FF, #04366e, #03264d);
 }
 
 .loading {

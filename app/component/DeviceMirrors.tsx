@@ -22,7 +22,10 @@ export const Devices = (props: DeviceMirrorProps) => {
         }
         newSocket.onmessage = (event: MessageEvent) => {
             console.log(`onMessage ${event}`)
-            const img = URL.createObjectURL(event.data as Blob);
+            const imageBlob = event.data as Blob
+            if (imageBlob === undefined || imageBlob === null) return 
+
+            const img = URL.createObjectURL(event.data as Blob)
             setStream(img)  
         }
 

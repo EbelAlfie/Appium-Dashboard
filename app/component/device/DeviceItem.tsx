@@ -1,3 +1,4 @@
+import { appiumService } from "@/api/AppiumService"
 import { DeviceModel } from "@/domain/Device"
 import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes, useEffect, useMemo, useState } from "react"
 
@@ -26,7 +27,7 @@ const ReadyLabel = ({isReady, ...props}: {isReady: boolean, props?: HTMLAttribut
 
 const DeviceName = ({deviceName}: {deviceName: string}) => {
     return (
-        <h3 className="text-xl font-bold m-3">{deviceName}</h3>
+        <h3 className="text-2xl font-bold m-3">{deviceName}</h3>
     )
 }
 
@@ -37,8 +38,8 @@ type DeviceInfoProps = {
 const DeviceInfo = (props: DeviceInfoProps) => {
     return (
         <div className="w-auto flex flex-row justify-between m-2">
-            <label>{props.name}:</label>
-            <label>{props.attribute}</label>
+            <label className="text-slate-400">{props.name}:</label>
+            <label className="text-slate-400">{props.attribute}</label>
         </div>
     )
 }
@@ -46,35 +47,41 @@ const DeviceInfo = (props: DeviceInfoProps) => {
 const DeviceButton = (props: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => {
     return (
         <button 
-            className="bg-[#0075FF] p-3 rounded-md hover:transition-colors hover:shadow-2xl focus:bg-black" 
+            className="bg-[#0075FF] p-3 rounded-md hover:transition-colors hover:shadow-2xl hover:shadow-[#263DB8]" 
             {...props}
-        >
-            Use device
-        </button>
+        />
     )
 }
 
 type DeviceProps = {
     device: DeviceModel,
     onUseButtonClicked?: (device: DeviceModel) => void,
-    onBlockDeviceClicked?: () => void
 }
 
 export const DeviceItem = (
-    {device, onUseButtonClicked, onBlockDeviceClicked}: DeviceProps
+    {device, onUseButtonClicked}: DeviceProps
 ) => {
+
+    const onBlockClicked = () => {
+        appiumService.blockDevice(device)
+        .then(result => {
+            
+        })
+        .catch(error => {
+
+        })
+    }
+
     const onUseClicked = () => {
         onUseButtonClicked && onUseButtonClicked(device)
     }
     
     return (
         <div 
-            className="w-auto flex flex-col rounded-lg device-item"
+            className="w-auto flex flex-col rounded-lg device-item p-2"
         >
-            <ReadyLabel isReady={!device.busy}/>
-            <hr />
             <DeviceName deviceName={device.name} />
-            <hr />
+            <ReadyLabel isReady={!device.busy}/>
 
             <div className="m-2">
                 <DeviceInfo 
@@ -89,10 +96,9 @@ export const DeviceItem = (
                     name="Location"
                     attribute={device.host.replaceAll("http://", "")}
                 />
-                <div className="flex flex-row">
-                    <DeviceButton
-                        onClick={onUseClicked}
-                    />
+                <div className="flex flex-row justify-around mt-5">
+                    <DeviceButton onClick={onUseClicked}>Use Device</DeviceButton>
+                    <DeviceButton onClick={onBlockClicked}>Block Device</DeviceButton>
                 </div>
             </div>
             
